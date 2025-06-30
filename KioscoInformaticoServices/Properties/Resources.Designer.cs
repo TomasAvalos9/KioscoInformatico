@@ -70,11 +70,11 @@ namespace Service.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://datakioscoale.azurewebsites.net/api/.
+        ///   Busca una cadena traducida similar a kioscotomiweb-d2a5a3dbhrenhrcm.brazilsouth-01.azurewebsites.net.
         /// </summary>
-        internal static string UrlApi {
+        internal static string UrlApi1 {
             get {
-                return ResourceManager.GetString("UrlApi", resourceCulture);
+                return ResourceManager.GetString("UrlApi1", resourceCulture);
             }
         }
         

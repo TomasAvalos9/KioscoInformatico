@@ -1,6 +1,8 @@
+using Backend.Class;
 using Backend.DataContext;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -41,6 +43,11 @@ FirebaseApp.Create(new AppOptions()
 {
     Credential = GoogleCredential.FromFile("Firebase/kioscoinformatico-4cf58-firebase-adminsdk-uhh36-b0054b804a.json") 
 });
+
+builder.Services
+    .AddAuthentication("Firebase")
+    .AddScheme<AuthenticationSchemeOptions, FirebaseAuthenticationHandler>("Firebase", null);
+
 
 builder.Services.AddAuthorization();
 
@@ -112,9 +119,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins",
         builder => builder
-            .WithOrigins("https://kioscosofi.azurewebsites.net/",
-                    "https://www.kioscosofi.azurewebsites.net/",
-                    "https://localhost:7190")
+            .WithOrigins("https://kioscotomi.azurewebsites.net/",
+                    "https://www.kioscotomi.azurewebsites.net/",
+                    "https://localhost:7238")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });

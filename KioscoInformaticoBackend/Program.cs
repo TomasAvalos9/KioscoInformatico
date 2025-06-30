@@ -9,6 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
 
+DotNetEnv.Env.Load(); // Cargar variables de entorno desde el archivo .env
+
 var builder = WebApplication.CreateBuilder(args);
 
 #region Implementación propia de creacion de JWT propios
@@ -39,9 +41,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 #endregion
 
-FirebaseApp.Create(new AppOptions()
+var firebaseJson = Environment.GetEnvironmentVariable("GOOGLE_CREDENTIALS");
+
+if (string.IsNullOrWhiteSpace(firebaseJson))
 {
-    Credential = GoogleCredential.FromFile("Firebase/kioscoinformatico-4cf58-firebase-adminsdk-uhh36-21b9d71209.json") 
+    throw new Exception("Falta la variable GOOGLE_CREDENTIALS");
+}
+
+var credential = GoogleCredential.FromJson(firebaseJson);
+
+FirebaseApp.Create(new AppOptions
+{
+    Credential = credential
 });
 
 builder.Services

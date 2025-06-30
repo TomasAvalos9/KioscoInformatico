@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:KioscoInformaticoApp.ViewModels"
+             x:Class="KioscoInformaticoApp.Views.ProductosView"
+             Title="Lista de productos"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <viewModels:ProductosViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="Auto, *, Auto, Auto">
+        <HorizontalStackLayout Grid.Row="0">
+            <Label Text="Buscar:"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Margin="0,10,0,10"
+                   Grid.Row="0"/>
+            <Entry Placeholder="Buscar productos..."
+               Text="{Binding FilterProducts}"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Margin="0,10,0,10"
+               />
+        </HorizontalStackLayout>
+        
+        <ScrollView Grid.Row="1">
+            <ListView 
+                ItemsSource="{Binding Productos}"
+                SelectedItem="{Binding SelectedProduct}"
+                SelectionMode="Single"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding ObtenerProductosCommand}"
+                IsRefreshing="{Binding IsRefreshing}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Nombre}"
+                                  Detail="{Binding Precio, StringFormat='${0:F2}'}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+        <Button Text="Agregar producto"
+                Command="{Binding AgregarProductoCommand}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Margin="0,10,0,10"
+                Grid.Row="2"/>
+        <Button Text="Editar producto"
+                Command="{Binding EditarProductoCommand}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Margin="0,10,0,10"
+                Grid.Row="3"/>
+    </Grid>
+</ContentPage>

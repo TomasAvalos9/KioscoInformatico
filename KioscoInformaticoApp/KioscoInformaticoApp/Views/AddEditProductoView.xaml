@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:viewModels="clr-namespace:KioscoInformaticoApp.ViewModels"
+             x:Class="KioscoInformaticoApp.Views.AddEditProductoView"
+             Title="Agregar/Editar producto"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <viewModels:AddEditProductoViewModel />
+    </ContentPage.BindingContext>
+    <VerticalStackLayout>
+        
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*">
+            <Label Text="Nombre del producto:"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <Entry Placeholder="Nombre del producto"
+                   Text="{Binding Nombre}"
+                   Grid.Column="1"
+                   Grid.Row="0"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"/>
+            <Label Text="Precio del producto: $"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <Entry Placeholder="Precio del producto"
+                   Text="{Binding Precio, StringFormat='{}{0:F2}'}"
+                   Grid.Column="1"
+                   Grid.Row="1"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   Keyboard="Numeric">
+                
+            </Entry>
+            <Label Text="Oferta:"
+                   Grid.Column="0"
+                   Grid.Row="2"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <CheckBox IsChecked="{Binding Oferta}"
+                      Grid.Column="1"
+                        Grid.Row="2"
+                      HorizontalOptions="Start"
+                      VerticalOptions="Center"/>
+        </Grid>
+        <Button Text="Guardar"
+                Command="{Binding SaveProductCommand}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+    </VerticalStackLayout>
+</ContentPage>
